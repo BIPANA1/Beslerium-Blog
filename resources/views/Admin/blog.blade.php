@@ -1,7 +1,6 @@
 @extends('Admin.layouts.main')
 @section('content')
 
-
 <main class="main-container">
     <div class="main-title">
       <p class="font-weight-bold">DASHBOARD</p>
@@ -29,6 +28,5 @@
             </table>
         </div>
   </main>
-
 
 @endsection

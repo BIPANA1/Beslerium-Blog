@@ -19,7 +19,7 @@
                     <a class="nav-link" href="{{route("home")}}">Home</a>
                     <a class="nav-link" href="{{route('user.index')}}">Blogs</a>
                     @if (auth()->user())
-                    <li><a href="{{ route('logout') }}"
+                    <li><a class="nav-link" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
@@ -34,7 +34,7 @@
                                     alt="User Image">
                             </a>
                             @if (Auth::user()->role == 'admin')
-                            <li><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
+                            <li><a class="nav-link" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
                         @endif
                         @else
                             <a class="nav-link" href="{{ route('login') }}">Login</a>
