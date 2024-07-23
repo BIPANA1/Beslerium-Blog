@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="/dasboard.css">
   </head>
   <body>
@@ -45,7 +47,7 @@
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="{{route('admin.blog')}}" target="_blank">
+            <a href="" target="_blank">
               <span class="material-icons-outlined">inventory_2</span> Blog
             </a>
           </li>

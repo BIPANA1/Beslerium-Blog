@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +23,21 @@ Route::get('/', function () {
 Auth::routes();
 
 
+//User side
+
+Route::get('/blog',[FrontendController::class,'index'])->name('user.index');
+Route::get('/get-blog',[FrontendController::class,'blogDesp'])->name('user.blogDescription');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('admin')->middleware(['admin'])->group(function(){
+
+//admin side
+Route::get('/dashboard',[dashboardController::class,'index'])->name('admin.dashboard');
 Route::get('/blog',[AdminController::class,'blog'])->name('admin.blog');
 Route::get('/user',[AdminController::class,'user'])->name('admin.user');
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+
+

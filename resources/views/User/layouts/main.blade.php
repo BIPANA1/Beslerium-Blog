@@ -16,15 +16,31 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
-                    <a class="nav-link" href="/User/home.html">Home</a>
-                    <a class="nav-link" href="/User/blog.html">Blogs</a>
-                    <a class="nav-link" href="/login.html">Login</a>
-                    <a class="nav-link" href="/register.html">Register</a>
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{asset('Images/user.png')}}" height="42px" width="45px" alt="User Image">
-                        </a>
+                    <a class="nav-link" href="{{route("home")}}">Home</a>
+                    <a class="nav-link" href="{{route('user.index')}}">Blogs</a>
+                    @if (auth()->user())
+                    <li><a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                         document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a> </li>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ asset('Images/user.png') }}" height="42px" width="45px"
+                                    alt="User Image">
+                            </a>
+                            @if (Auth::user()->role == 'admin')
+                            <li><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
+                        @endif
+                        @else
+                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                            @endif
+
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="/User/viewprofile.html">View Profile</a></li>
                             <li><a class="dropdown-item" href="#">Edit Profile</a></li>
