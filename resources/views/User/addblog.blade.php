@@ -53,7 +53,8 @@
 
     </style>
 
-<form class="form-items" method="post">
+<form class="form-items" method="POST" action="{{route('blog.store')}}" enctype="multipart/form-data">
+    @csrf
     <div>
         <h2 class="heading">Add Blog</h2>
         <label for="title">Title</label>

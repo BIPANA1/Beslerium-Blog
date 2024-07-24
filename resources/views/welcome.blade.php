@@ -11,7 +11,7 @@
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
                             the card's content.</p>
                         <div class="text-center">
-                            <a href="/User/blogdescription.html" class="btn btn-primary">See more</a>
+                            <a href="{{route('user.blogDescription')}}" class="btn btn-primary">See more</a>
                         </div>
                     </div>
                 </div>

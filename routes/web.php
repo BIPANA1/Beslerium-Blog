@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,10 @@ Auth::routes();
 
 Route::get('/blog',[FrontendController::class,'index'])->name('user.index');
 Route::get('/get-blog',[FrontendController::class,'blogDesp'])->name('user.blogDescription');
+Route::get('/add-blog',[FrontendController::class,'addBlog'])->name('user.addBlog');
+//Blog
+
+Route::post('/blog-store',[BlogController::class,'store'])->name('blog.store');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
