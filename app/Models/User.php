@@ -42,4 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function blog()
+    {
+        return $this->belongsTo(User::class,'blog_id');
+    }
 }

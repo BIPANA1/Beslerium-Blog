@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\blog;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -13,9 +14,11 @@ class FrontendController extends Controller
         return view('User.blog',compact('blog'));
     }
 
-    public function blogDesp()
+    public function blogDesp($id)
     {
-        return view('User.blogdescription');
+        $blog = blog::findOrFail($id);
+        $user = User::findOrFail($id);
+        return view('User.blogdescription',compact('blog','user'));
     }
 
     public function addBlog()

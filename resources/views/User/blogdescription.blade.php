@@ -7,21 +7,20 @@
         <div class="card mb-3">
             <div class="card-body">
                 <div class="d-flex align-items-center">
-                    <img src="/Image/user.png" height="45px" width="45px" class="rounded-circle me-2" alt="User Image">
+                    <img src="{{asset($blog->image)}}" height="45px" width="45px" class="rounded-circle me-2" alt="User Image">
                     <div>
-                        <p class="m-0">Bipana Shrestha</p>
-                        <p class="m-0">bipanashrestha435@gmail.com</p>
+                        <p class="m-0">{{$user->name}}</p>
+                        <p class="m-0">{{$user->email}}</p>
                     </div>
                 </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem incidunt quae accusamus dolores
-                    amet quas nemo facere exercitationem sit beatae.</p>
+                <p>{{$blog->description}}</p>
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <i class="far fa-thumbs-up"></i>
                         <i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i>
                     </div>
                     <div class="text-muted">
-                        <i class="far fa-clock"></i> 05 May 2024
+                        <i class="far fa-clock"></i> {{$blog->created_at}}
                     </div>
                 </div>
                 <div class="mt-4">

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\FrontendController;
+use App\Models\blog;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $blog = blog::all();
+    return view('welcome',compact('blog'));
 });
 
 Auth::routes();
@@ -27,11 +29,19 @@ Auth::routes();
 //User side
 
 Route::get('/blog',[FrontendController::class,'index'])->name('user.index');
-Route::get('/get-blog',[FrontendController::class,'blogDesp'])->name('user.blogDescription');
-Route::get('/add-blog',[FrontendController::class,'addBlog'])->name('user.addBlog');
+Route::get('/get-blog/{id}',[FrontendController::class,'blogDesp'])->name('user.blogDescription');
 //Blog
 
+
+Route::middleware(['auth'])->group(function(){
+
+
 Route::post('/blog-store',[BlogController::class,'store'])->name('blog.store');
+Route::get('/add-blog',[FrontendController::class,'addBlog'])->name('user.addBlog');
+
+});
+
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

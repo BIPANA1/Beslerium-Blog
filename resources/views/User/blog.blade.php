@@ -3,23 +3,23 @@
 
 
 
-<div class="d-flex mr-4 mt-4 justify-content-end">
+<div class="d-flex mt-4 justify-content-end" style="margin-right: 28px">
     <span >
       <a href="{{route('user.addBlog')}}" class="btn btn-primary">Add Blog</a>
     </span>
   </div>
 
-  <div class="container mt-4">
+  <div class="container">
+  <div class="row mt-4 mb-4">
     @foreach ($blog as $b )
-  <div class="row">
-    <div class="col-md-4 mb-4">
-        <div class="card" style="">
+    <div class="col-4">
+        <div class="card" style="width: 18rem; margin-left: 5%; object-fit:cover">
             <img src="{{asset($b->image)}}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{$b->title}}</h5>
               <p class="card-text">{{$b->description}}</p>
               <div class="text-center">
-                <a href="{{route('user.blogDescription')}}" class="btn btn-primary">See more</a>
+                <a href="{{route('user.blogDescription',['id'=>$b->id])}}" class="btn btn-primary">See more</a>
               </div>
             </div>
           </div>
@@ -50,9 +50,9 @@
           </div>
     </div> --}}
 
+    @endforeach
 
   </div>
-  @endforeach
 </div>
 
 

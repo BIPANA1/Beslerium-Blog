@@ -47,8 +47,9 @@ class BlogController extends Controller
         $image_title = $imgpath . $imgname;
        }
        $blog['image'] = $image_title;
+       $blog->user_id = auth()->user()->id;
        $blog->save();
-       return redirect()->back();
+       return redirect('user.index');
 
     }
 

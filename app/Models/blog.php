@@ -9,4 +9,9 @@ class blog extends Model
 {
     use HasFactory;
     protected $fillable =['title','image','description'];
+
+    public function user()
+    {
+        return $this->hasMany(User::class,'user_id');
+    }
 }
