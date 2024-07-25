@@ -19,7 +19,7 @@
               <h5 class="card-title">{{$b->title}}</h5>
               <p class="card-text">{{$b->description}}</p>
               <div class="text-center">
-                <a href="{{route('user.blogDescription',['id'=>$b->id])}}" class="btn btn-primary">See more</a>
+                <a href="{{route('user.blogDescription',['blog'=>$b->id])}}" class="btn btn-primary">See more</a>
               </div>
             </div>
           </div>

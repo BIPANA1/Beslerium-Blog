@@ -38,6 +38,10 @@ Route::middleware(['auth'])->group(function(){
 
 Route::post('/blog-store',[BlogController::class,'store'])->name('blog.store');
 Route::get('/add-blog',[FrontendController::class,'addBlog'])->name('user.addBlog');
+Route::get('/edit-blog/{id}',[BlogController::class,'edit'])->name('blog.edit');
+Route::post('/update-blog/{id}',[BlogController::class,'update'])->name('blog.update');
+Route::delete('/delete/{id}',[BlogController::class,'destroy'])->name('blog.destroy');
+
 
 });
 

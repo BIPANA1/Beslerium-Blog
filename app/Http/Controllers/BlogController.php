@@ -49,7 +49,7 @@ class BlogController extends Controller
        $blog['image'] = $image_title;
        $blog->user_id = auth()->user()->id;
        $blog->save();
-       return redirect('user.index');
+       return redirect()->route('user.index');
 
     }
 
@@ -64,24 +64,45 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(blog $blog)
+    public function edit($id)
     {
-        //
+        $blog = blog::findOrFail($id);
+        return view('User.blogdescription',compact('blog'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, blog $blog)
+    public function update(Request $request, $id)
     {
-        //
+           $blog = blog::findOrFail($id);
+           $blog->title = $request->input('title');
+           $blog->description = $request->input('description');
+           $image_title = null;
+           if($request->hasFile('image')){
+            $img = $request->file('image');
+            $imgpath = 'upload/user/';
+            $imgname = now()->format('ymdhiss') . rand(10000, 99999) . '.' . $img->getClientOriginalExtension();
+            $img->move($imgpath, $imgname);
+            $image_title = $imgpath . $imgname;
+           $blog['image'] = $image_title;
+
+           }
+           $blog->user_id = auth()->user()->id;
+           $blog->update();
+           return redirect()->back()->with('success','Successfully Deleted!');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(blog $blog)
+    public function destroy($id)
     {
-        //
+        $data = blog::findOrFail($id);
+        $data->delete();
+        return redirect()->route('admin.blog');
+
     }
 }

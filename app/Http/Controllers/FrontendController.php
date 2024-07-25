@@ -17,7 +17,7 @@ class FrontendController extends Controller
     public function blogDesp($id)
     {
         $blog = blog::findOrFail($id);
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($blog->user_id);
         return view('User.blogdescription',compact('blog','user'));
     }
 
