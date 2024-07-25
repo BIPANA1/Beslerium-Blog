@@ -4,7 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
 
-<h6 class="display-6 text-center">Comment Section</h6>
+<h6 class="display-6 text-center">Blog Section</h6>
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card mb-3">
@@ -40,54 +40,71 @@
                     </form>
                 </div>
             @endif
-
             </div>
-        </div>
-        <div class="mb-4">
-            <textarea class="form-control" rows="4" placeholder="Enter your comment here..."></textarea>
         </div>
         <div>
-            <button class="btn btn-primary">Send</button>
         </div>
+
+        {{-- User's comment section --}}
+
+        <h6 class="display-6 text-center">Comment Section</h6>
+        <div class="row justify-content-center">
+         @foreach($comment as $c)
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <p> <img src="{{asset($blog->image)}}" height="45px" width="45px" alt="image" style="border-radius: 50%;">{{$user->name}} </p>
+                    </div>
+                    <p>{{$c->comment}}</p>
+                    @if (Auth::user()->blog_id)
+                    <a href="{{route('comment.edit',['id'=>$c->id])}}" class="btn btn-primary ml-4 mr-2">
+                        <i class="fa-solid fa-edit"></i> Edit</a>
+                        <form action="{{ route('comment.destroy', ['id' => $c->id]) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?');">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </form>
+                    @endif
+
+                        <p></p>
+                    <div class="mt-4">
+                        <a href=""><button class="btn btn-outline-success"><i class="fas fa-thumbs-up"></i></button></a>
+                        <span class="like-count"></span>
+                        <a href=""><button class="btn btn-outline-danger"><i class="fas fa-thumbs-down"></i></button></a>
+                        <span class="dislike-count"></span>
+                    </div>
+                    <div class="flex" style="margin-left: 58%;">
+                        <div class="sidebar-brand mg-4 mt-2 flex" style="cursor: pointer; margin-left: 15%; margin-bottom: 5%;">
+                            <span style="margin-left: 18%;"> <i class="fa-regular fa-clock"></i> {{$c->created_at}} </span>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        @endforeach
+
     </div>
-</div>
-</div>
 
 
-<!-- edit page for User's Blog -->
-<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-<div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title" id="editProfileModalLabel">Edit Blog</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-        <form>
-            <div class="mb-3">
-                <label for="profileImage" class="form-label">Profile Image</label>
-                <input type="file" class="form-control" id="profileImage">
+        <form action="{{ route('comment.store') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="comment">Your Comment</label>
+                <textarea name="comment" id="comment" class="form-control mt-2" required></textarea>
             </div>
-            <div class="mb-3">
-                <label for="name" class="form-label">Title</label>
-                <input type="text" class="form-control" value="" id="title">
-            </div>
-            <div class="mb-3">
-                <label for="address" class="form-label">Description</label>
-                <textarea type="text" value="" class="form-control" id="address"> </textarea>
-            </div>
+            <input type="hidden" name="blog_id" value="{{ $blog->id }}" />
+            <button type="submit" class="btn btn-primary mt-4">Submit</button>
         </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save Changes</button>
-    </div>
-</div>
-</div>
+    {{-- </div> --}}
+{{-- </div> --}}
 </div>
 
 
-<!-- edit page for comment -->
+<!-- edit page for user's blog -->
 <form action="{{route('blog.update',['id'=> $blog->id])}}" method="POST" enctype="multipart/form-data">
 @csrf
 <div class="modal fade" id="editCommentModal" tabindex="-1" aria-labelledby="editCommentModalLabel" aria-hidden="true">
@@ -118,11 +135,11 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="submit"  class="btn btn-primary">Save Changes</button>
     </div>
+</div>
+</div>
+</div>
 </form>
 
-</div>
-</div>
-</div>
 
 
 @endsection

@@ -8,10 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class blog extends Model
 {
     use HasFactory;
-    protected $fillable =['title','image','description'];
+    protected $fillable =['title','image','description','user_id'];
 
     public function user()
     {
         return $this->hasMany(User::class,'user_id');
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(blog::class,'comment_id');
     }
 }

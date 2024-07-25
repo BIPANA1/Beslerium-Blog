@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\FrontendController;
 use App\Models\blog;
@@ -34,14 +35,17 @@ Route::get('/get-blog/{id}',[FrontendController::class,'blogDesp'])->name('user.
 
 
 Route::middleware(['auth'])->group(function(){
-
-
 Route::post('/blog-store',[BlogController::class,'store'])->name('blog.store');
 Route::get('/add-blog',[FrontendController::class,'addBlog'])->name('user.addBlog');
 Route::get('/edit-blog/{id}',[BlogController::class,'edit'])->name('blog.edit');
 Route::post('/update-blog/{id}',[BlogController::class,'update'])->name('blog.update');
 Route::delete('/delete/{id}',[BlogController::class,'destroy'])->name('blog.destroy');
 
+//comment
+Route::post('/add-comment',[CommentController::class,'store'])->name('comment.store');
+Route::get('/get-comment/{id}',[CommentController::class,'edit'])->name('comment.edit');
+Route::post('/update-comment/{id}',[CommentController::class,'update'])->name('comment.update');
+Route::delete('/delete-comment/{id}',[CommentController::class,'destroy'])->name('comment.destroy');
 
 });
 
