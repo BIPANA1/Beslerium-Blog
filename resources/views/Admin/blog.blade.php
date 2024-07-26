@@ -9,21 +9,24 @@
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">Id</th>
+                        <th>User Name</th>
                         <th scope="col">Title</th>
                         <th scope="col">Description</th>
                         <th scope="col">Image</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($blog as $blogs )
                     <tr>
-                        <td>1</td>
-                        <td>Product A</td>
-                        <td>A description of Product A</td>
+                        <td>{{$blogs->user->name}}</td>
+                        <td>{{$blogs->title}}</td>
+                        <td>{{$blogs->description}}</td>
                         <td>
-                          <img src="/Image/user.png" height="45px" width="45px">
+                          <img src="{{asset($blogs->image)}}" height="45px" width="45px">
                         </td>
                     </tr>
+                    @endforeach
+
                 </tbody>
             </table>
         </div>

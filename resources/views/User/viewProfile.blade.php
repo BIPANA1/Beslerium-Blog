@@ -71,39 +71,44 @@
 
 <!-- Change Password -->
 
-<form action="{{route('profile.changePassword')}}" method="post">
+<form action="{{ route('profile.changePassword') }}" method="post">
     @csrf
-    @method("post")
+    @method('post')
     <div class="modal fade mt-4" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <label for="currentPassword" class="form-label">Current Password</label>
-                  <input type="password" class="form-control" name="old_password">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="mb-3">
-                  <label for="newPassword" class="form-label">New Password</label>
-                  <input type="password" class="form-control" name="new_password">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="oldPasswordInput" class="form-label">Current Password</label>
+                        <input type="password" name="old_password" class="form-control @error('old_password') is-invalid @enderror" id="oldPasswordInput">
+                        @error('old_password')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPasswordInput" class="form-label">New Password</label>
+                        <input type="password" name="new_password" class="form-control @error('new_password') is-invalid @enderror" id="newPasswordInput">
+                        @error('new_password')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmNewPasswordInput" class="form-label">Confirm New Password</label>
+                        <input type="password" name="new_password_confirmation" class="form-control" id="confirmNewPasswordInput">
+                    </div>
                 </div>
-                <div class="mb-3">
-                  <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
-                  <input type="password" class="form-control" name="new_password">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
-              </form>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save Changes</button>
-            </div>
-          </div>
         </div>
-        </div>
+    </div>
 </form>
+
 
 @endsection
