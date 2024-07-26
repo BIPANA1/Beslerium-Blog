@@ -49,18 +49,18 @@
 
         <h6 class="display-6 text-center">Comment Section</h6>
         <div class="row justify-content-center">
-         @foreach($comment as $c)
+         @foreach($comments as $comment)
         <div class="col-md-8">
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
-                        <p> <img src="{{asset($blog->image)}}" height="45px" width="45px" alt="image" style="border-radius: 50%;">{{$user->name}} </p>
+                        <p> <img src="{{asset($blog->image)}}" height="45px" width="45px" alt="image" style="border-radius: 50%;">{{$blog->user->name}} </p>
                     </div>
-                    <p>{{$c->comment}}</p>
-                    @if (Auth::user()->blog_id)
-                    <a href="{{route('comment.edit',['id'=>$c->id])}}" class="btn btn-primary ml-4 mr-2">
+                    <p>{{$comment->comment}}</p>
+                    @if (Auth::user())
+                    <a href="{{route('comment.edit',['id'=>$comment->id])}}" class="btn btn-primary ml-4 mr-2">
                         <i class="fa-solid fa-edit"></i> Edit</a>
-                        <form action="{{ route('comment.destroy', ['id' => $c->id]) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('comment.destroy', ['id' => $comment->id]) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?');">
@@ -78,7 +78,7 @@
                     </div>
                     <div class="flex" style="margin-left: 58%;">
                         <div class="sidebar-brand mg-4 mt-2 flex" style="cursor: pointer; margin-left: 15%; margin-bottom: 5%;">
-                            <span style="margin-left: 18%;"> <i class="fa-regular fa-clock"></i> {{$c->created_at}} </span>
+                            <span style="margin-left: 18%;"> <i class="fa-regular fa-clock"></i> {{$comment->created_at}} </span>
                         </div>
                     </div>
                     <hr>

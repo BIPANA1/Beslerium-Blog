@@ -43,7 +43,7 @@
                             @endif
 
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/User/viewprofile.html">View Profile</a></li>
+                            <li><a class="dropdown-item" href="{{route('profile.index')}}">View Profile</a></li>
                             <li><a class="dropdown-item" href="#">Edit Profile</a></li>
                         </ul>
                     </div>

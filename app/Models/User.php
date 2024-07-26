@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'user',
         'password',
     ];
 
@@ -46,5 +47,10 @@ class User extends Authenticatable
     public function blog()
     {
         return $this->belongsTo(User::class,'blog_id');
+    }
+
+    public function comment()
+    {
+        return $this->belongsTo(Comment::class,'comment_id');
     }
 }

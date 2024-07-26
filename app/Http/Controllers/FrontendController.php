@@ -6,7 +6,6 @@ use App\Models\blog;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -19,9 +18,9 @@ class FrontendController extends Controller
     public function blogDesp($id)
     {
         $blog = blog::findOrFail($id);
-        $user = Auth::user();
-        $comment = Comment::where('blog_id',$id)->get();
-        return view('User.blogdescription',compact('blog','user','comment'));
+        $user = User::findOrFail($blog->user_id);
+        $comments = Comment::where('blog_id',$id)->with('user')->get();
+        return view('User.blogdescription',compact('blog','user','comments'));
     }
 
     public function addBlog()

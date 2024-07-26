@@ -5,8 +5,11 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\profileController;
+use App\Http\Controllers\ProfileController as ControllersProfileController;
 use App\Models\blog;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +49,12 @@ Route::post('/add-comment',[CommentController::class,'store'])->name('comment.st
 Route::get('/get-comment/{id}',[CommentController::class,'edit'])->name('comment.edit');
 Route::post('/update-comment/{id}',[CommentController::class,'update'])->name('comment.update');
 Route::delete('/delete-comment/{id}',[CommentController::class,'destroy'])->name('comment.destroy');
+
+//profile
+Route::get('/get-profile/{id}',[ProfileController::class,'index'])->name('profile.index');
+Route::get('/edit-profile/{id}',[ProfileController::class,'edit'])->name('profile.edit');
+Route::post('/update-profile/{id}',[ProfileController::class,'update'])->name('profile.update');
+
 
 });
 
