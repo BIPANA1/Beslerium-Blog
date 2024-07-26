@@ -51,10 +51,10 @@ Route::post('/update-comment/{id}',[CommentController::class,'update'])->name('c
 Route::delete('/delete-comment/{id}',[CommentController::class,'destroy'])->name('comment.destroy');
 
 //profile
-Route::get('/get-profile/{id}',[ProfileController::class,'index'])->name('profile.index');
+Route::get('/get-profile',[ProfileController::class,'index'])->name('profile.index');
 Route::get('/edit-profile/{id}',[ProfileController::class,'edit'])->name('profile.edit');
 Route::post('/update-profile/{id}',[ProfileController::class,'update'])->name('profile.update');
-
+Route::post('/change-password',[ProfileController::class,'changePassword'])->name('profile.changePassword');
 
 });
 
