@@ -31,7 +31,7 @@
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="{{ asset('Images/user.png') }}" height="42px" width="45px"
+                                <img src="{{ asset(auth()->user()->image) }}" height="42px" width="45px"
                                     alt="User Image">
                             </a>
                             @if (Auth::user()->role == 'admin')

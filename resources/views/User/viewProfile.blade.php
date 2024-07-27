@@ -13,7 +13,11 @@
             </div>
             <div class=" d-flex mt-2">
             <button class="btn btn-dark me-2" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
-            <button class="btn btn-dark"> Delete Profile</button>
+            <form action="{{route('profile.destroy',['id'=> $user->id])}}" method="Post">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-dark"> Delete Profile</button>
+            </form>
              </div>
             <div class="text mt-3">
                 <span>Eleanor Pena is a creator of minimalistic x bold graphics and digital artwork.</span></div>

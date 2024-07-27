@@ -55,6 +55,18 @@ Route::get('/get-profile',[ProfileController::class,'index'])->name('profile.ind
 Route::get('/edit-profile/{id}',[ProfileController::class,'edit'])->name('profile.edit');
 Route::post('/update-profile/{id}',[ProfileController::class,'update'])->name('profile.update');
 Route::post('/change-password',[ProfileController::class,'changePassword'])->name('profile.changePassword');
+Route::delete('/delete-profile/{id}',[ProfileController::class,'destroy'])->name('profile.destroy');
+
+//upvote downvote blog
+
+Route::post('/blog-upvote/{id}',[BlogController::class,'upvote'])->name('blog.upvote');
+Route::post('/blog-downvote/{id}',[BlogController::class,'downvote'])->name('blog.downvote');
+
+
+
+
+
+
 
 });
 

@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'user',
+        'image',
+        'address',
         'password',
     ];
 
@@ -51,6 +53,6 @@ class User extends Authenticatable
 
     public function comment()
     {
-        return $this->belongsTo(Comment::class,'comment_id');
+        return $this->hasMany(Comment::class,'comment_id');
     }
 }

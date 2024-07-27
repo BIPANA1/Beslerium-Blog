@@ -19,7 +19,7 @@ class FrontendController extends Controller
     {
         $blog = blog::findOrFail($id);
         $user = User::findOrFail($blog->user_id);
-        $comments = Comment::where('blog_id',$id)->with('user')->get();
+        $comments = Comment::with('user')->where('blog_id', $blog->id)->get();
         return view('User.blogdescription',compact('blog','user','comments'));
     }
 

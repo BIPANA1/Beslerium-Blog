@@ -7,56 +7,27 @@
     </div>
 
     <div class="container">
-      <div class="row mb-4">
+      <div class="row mb-4 justify-content-center">
         <div class="col-md-6 shadow">
           <table class="table">
             <thead class="thead-white">
               <tr>
-                  <th scope="col">Id</th>
+                  <th scope="col">Title</th>
                   <th scope="col">Name</th>
-                  <th scope="col">Email</th>
                   <th scope="col">Address</th>
-                  <th scope="col">Role</th>
-                  <th scope="col">Image</th>
               </tr>
           </thead>
           <tbody>
+            @foreach ($blog as $blogs)
               <tr>
-                  <td>1</td>
-                  <td>Product A</td>
-                  <td>Product A</td>
-                  <td>Dharan</td>
-                  <td>User</td>
+                  <td>{{$blogs->title}}</td>
+                  <td>{{$blogs->user->name}}</td>
+                  <td>{{$blogs->user->address}}</td>
                   <td>
-                    <img src="/Image/user.png" height="45px" width="45px">
+                    <img src="{{asset($blogs->user->image)}}" height="45px" width="45px">
                   </td>
               </tr>
-          </tbody>
-          </table>
-        </div>
-        <div class="col-md-6 shadow">
-          <table class="table">
-            <thead class="thead-white">
-              <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Role</th>
-                  <th scope="col">Image</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>1</td>
-                  <td>Product A</td>
-                  <td>Product A</td>
-                  <td>Dharan</td>
-                  <td>User</td>
-                  <td>
-                    <img src="/Image/user.png" height="45px" width="45px">
-                  </td>
-              </tr>
+              @endforeach
           </tbody>
           </table>
         </div>

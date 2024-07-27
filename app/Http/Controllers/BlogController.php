@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\blog;
+use App\Models\blog_vote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -103,6 +105,63 @@ class BlogController extends Controller
         $data = blog::findOrFail($id);
         $data->delete();
         return redirect()->route('admin.blog');
+
+    }
+
+    public function upvote($id)
+    {
+        $blog = Blog::findOrFail($id);
+        $userId = Auth::id();
+
+        $existingVote = blog_vote::where('user_id', $userId)->where('blog_id', $id)->first();
+
+        if ($existingVote && $existingVote->vote_type === 'upvote') {
+            return redirect()->back()->with('error', 'Already upvoted');
+        }
+
+        if ($existingVote && $existingVote->vote_type === 'downvote') {
+            $blog->downvote = max(0, $blog->downvote - 1);
+            $existingVote->delete();
+        }
+
+        $blog->upvote = $blog->upvote + 1;
+        $blog->save();
+
+        blog_vote::create([
+            'user_id' => $userId,
+            'blog_id' => $id,
+            'vote_type' => 'upvote'
+        ]);
+
+        return response()->json(['upvote' => $blog->upvote, 'downvote' => $blog->downvote]);
+    }
+
+    public function downvote($id)
+    {
+        $blog = Blog::findOrFail($id);
+        $userId = Auth::id();
+
+        $existingVote = blog_vote::where('user_id', $userId)->where('blog_id', $id)->first();
+
+        if ($existingVote && $existingVote->vote_type === 'downvote') {
+            return redirect()->back()->with('error', 'Already downvoted');
+        }
+
+        if ($existingVote && $existingVote->vote_type === 'upvote') {
+            $blog->upvote = max(0, $blog->upvote - 1);
+            $existingVote->delete();
+        }
+
+        $blog->downvote = $blog->downvote + 1;
+        $blog->save();
+
+        blog_vote::create([
+            'user_id' => $userId,
+            'blog_id' => $id,
+            'vote_type' => 'downvote'
+        ]);
+
+        return response()->json(['upvote' => $blog->upvote, 'downvote' => $blog->downvote]);
 
     }
 }

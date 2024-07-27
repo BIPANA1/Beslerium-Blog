@@ -60,4 +60,12 @@ class ProfileController extends Controller
         return redirect(route('profile.index'))->with("success", "Password changed" );
 
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('user.index')->with('sucess','Successfully deleted');
+
+    }
 }

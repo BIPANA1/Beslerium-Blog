@@ -17,11 +17,19 @@
                     </div>
                 </div>
                 <p>{{$blog->description}}</p>
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center cursor-pointer">
                     <div>
-                        <i class="far fa-thumbs-up"></i>
-                        <i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i>
+                        <button class="btn btn-outline-success upvote-btn" data-id="{{ $blog->id }}">
+                            <i class="far fa-thumbs-up"></i>
+                        </button>
+                        <span class="like-count">{{ $blog->upvote }}</span>
+
+                        <button class="btn btn-outline-danger downvote-btn" data-id="{{ $blog->id }}">
+                            <i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i>
+                        </button>
+                        <span class="dislike-count">{{ $blog->downvote }}</span>
                     </div>
+
                     <div class="text-muted">
                         <i class="far fa-clock"></i> {{$blog->created_at}}
                     </div>
@@ -49,15 +57,19 @@
 
         <h6 class="display-6 text-center">Comment Section</h6>
         <div class="row justify-content-center">
-         @foreach($comments as $comment)
+
+        @foreach($comments as $comment)
         <div class="col-md-8">
             <div class="card mb-3">
                 <div class="card-body">
+                    {{-- @if ($comment->user) --}}
                     <div class="d-flex align-items-center">
-                        <p> <img src="{{asset($blog->image)}}" height="45px" width="45px" alt="image" style="border-radius: 50%;">{{$blog->user->name}} </p>
+                        <p> <img src="{{asset($comment->user->image)}}" height="45px" width="45px" alt="image" style="border-radius: 50%;">{{$comment->user->name}} </p>
                     </div>
+                    {{-- @endif --}}
+
                     <p>{{$comment->comment}}</p>
-                    @if (Auth::user())
+                    @if (Auth::user() == $user)
                     <a href="{{route('comment.edit',['id'=>$comment->id])}}" class="btn btn-primary ml-4 mr-2">
                         <i class="fa-solid fa-edit"></i> Edit</a>
                         <form action="{{ route('comment.destroy', ['id' => $comment->id]) }}" method="POST" style="display:inline;">
@@ -70,11 +82,11 @@
                     @endif
 
                         <p></p>
-                    <div class="mt-4">
-                        <a href=""><button class="btn btn-outline-success"><i class="fas fa-thumbs-up"></i></button></a>
-                        <span class="like-count"></span>
-                        <a href=""><button class="btn btn-outline-danger"><i class="fas fa-thumbs-down"></i></button></a>
-                        <span class="dislike-count"></span>
+                    <div class="mt-4" style="cursor: pointer">
+                        <a href=""><button class="btn btn-outline-success upvote=btn" data-id="{{$comment->id}}" ><i class="fas fa-thumbs-up"></i></button></a>
+                        <span class="like-count">{{$comment->upvote}}</span>
+                        <a href=""><button class="btn btn-outline-danger downvote-btn" data-id="{{$comment->id}}" style="cursor: pointer"><i class="fas fa-thumbs-down"></i></button></a>
+                        <span class="dislike-count">{{$comment->downvote}}</span>
                     </div>
                     <div class="flex" style="margin-left: 58%;">
                         <div class="sidebar-brand mg-4 mt-2 flex" style="cursor: pointer; margin-left: 15%; margin-bottom: 5%;">
@@ -155,4 +167,48 @@
         reader.readAsDataURL(input.files[0]);
 
     }
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Handle upvote
+        $('.upvote-btn').click(function(e) {
+            e.preventDefault();
+            var blogId = $(this).data('id');
+            var $button = $(this);
+
+            $.ajax({
+                url: '{{route('blog.upvote',['id'=>$blog->id])}}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $button.next('.like-count').text(response.upvote);
+                    $button.siblings('.dislike-count').text(response.downvote);
+                }
+            });
+        });
+
+        // Handle downvote
+        $('.downvote-btn').click(function(e) {
+            e.preventDefault();
+            var blogId = $(this).data('id');
+            var $button = $(this);
+
+            $.ajax({
+                url: '{{route('blog.downvote',['id'=>$blog->id])}}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $button.next('.dislike-count').text(response.downvote);
+                    $button.siblings('.like-count').text(response.upvote);
+                }
+            });
+        });
+    });
 </script>

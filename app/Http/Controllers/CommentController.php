@@ -31,12 +31,15 @@ class CommentController extends Controller
         $request->validate([
             'comment'=> ['string','required'],
             'blog_id' => ['required', 'integer'],
+
         ]);
         $comment = new Comment();
         $comment->comment = $request->input('comment');
         $comment->blog_id =  $request->input('blog_id');
+        $comment->user_id = auth()->user()->id;
         $comment->save();
-        return redirect()->back()->with('sucess','Comment added sucessfully');
+        // dd($comment);
+        return redirect()->back()->with('success','Comment added sucessfully');
 
     }
 

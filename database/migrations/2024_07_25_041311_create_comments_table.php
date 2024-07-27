@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->longText('comment');
             $table->unsignedBigInteger('blog_id');
+            $table->unsignedBigInteger('user_id');
+            $table->integer('upvote')->nullable();
+            $table->integer('downvote')->nullable();
             $table->timestamps();
         });
     }
