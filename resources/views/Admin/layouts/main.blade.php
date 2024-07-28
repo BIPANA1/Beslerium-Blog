@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <style>
     body {
@@ -345,6 +346,11 @@
                 <li class="sidebar-list-item">
                     <a href="{{ route('admin.blog') }}" target="_blank">
                         <span class="material-icons-outlined">inventory_2</span> Blog
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="{{route('admin.popularity')}}" target="_blank">
+                        <span class="material-icons-outlined">inventory_2</span> Popularity
                     </a>
                 </li>
                 <li><a class="sidebar-list-item" href="{{ route('logout') }}"

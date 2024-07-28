@@ -87,6 +87,9 @@ Route::prefix('admin')->middleware(['admin'])->group(function(){
 Route::get('/dashboard',[dashboardController::class,'index'])->name('admin.dashboard');
 Route::get('/blog',[AdminController::class,'blog'])->name('admin.blog');
 Route::get('/user',[AdminController::class,'user'])->name('admin.user');
+Route::get('/popularity',[AdminController::class,'popularity'])->name('admin.popularity');
+Route::get('/highest',[AdminController::class,'highest'])->name('admin.highest');
+Route::get('/lowest',[AdminController::class,'lowest'])->name('admin.lowest');
 
 
 });

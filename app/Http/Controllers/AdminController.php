@@ -24,5 +24,26 @@ class AdminController extends Controller
 
     }
 
+    public function popularity()
+    {
+        $blog = blog::all();
+        $user = Auth::user();
+        return view('Admin.popularity',compact('blog','user'));
+    }
+
+    public function highest()
+    {
+        $blog = blog::withCount('upvotes')->orderBy('upvote_count','desc')->get();
+        return response()->json($blog);
+
+    }
+
+    public function lowest()
+    {
+        $blog = blog::withCount('downvote')->orderBy('downvote_count','asc')->get();
+        return response()->json($blog);
+
+    }
+
 
 }
