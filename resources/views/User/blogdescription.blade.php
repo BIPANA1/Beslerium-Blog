@@ -82,26 +82,34 @@
                     @endif
 
                         <p></p>
-                    <div class="mt-4" style="cursor: pointer">
-                        <a href=""><button class="btn btn-outline-success upvote=btn" data-id="{{$comment->id}}" ><i class="fas fa-thumbs-up"></i></button></a>
-                        <span class="like-count">{{$comment->upvote}}</span>
-                        <a href=""><button class="btn btn-outline-danger downvote-btn" data-id="{{$comment->id}}" style="cursor: pointer"><i class="fas fa-thumbs-down"></i></button></a>
-                        <span class="dislike-count">{{$comment->downvote}}</span>
-                    </div>
-                    <div class="flex" style="margin-left: 58%;">
+                        <div class="d-flex justify-content-between align-items-center cursor-pointer">
+                            <div>
+                                <button class="btn btn-outline-success upvote" data-id="{{ $comment->id }}">
+                                    <i class="far fa-thumbs-up"></i>
+                                </button>
+                                <span class="like-count">{{ $comment->upvote }}</span>
+
+                                <button class="btn btn-outline-danger downvote" data-id="{{ $comment->id }}">
+                                    <i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i>
+                                </button>
+                                <span class="dislike-count">{{ $comment->downvote }}</span>
+                            </div>
+
+                            <div class="text-muted">
+                                <i class="far fa-clock"></i> {{$comment->created_at}}
+                            </div>
+                        </div>
+                    {{-- <div class="flex" style="margin-left: 58%;">
                         <div class="sidebar-brand mg-4 mt-2 flex" style="cursor: pointer; margin-left: 15%; margin-bottom: 5%;">
                             <span style="margin-left: 18%;"> <i class="fa-regular fa-clock"></i> {{$comment->created_at}} </span>
                         </div>
-                    </div>
+                    </div> --}}
                     <hr>
                 </div>
             </div>
         </div>
         @endforeach
-
     </div>
-
-
         <form action="{{ route('comment.store') }}" method="POST">
             @csrf
             <div class="form-group">
@@ -151,10 +159,50 @@
 </div>
 </div>
 </form>
-
-
-
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Handle upvote
+        $('.upvote').click(function(e) {
+            e.preventDefault();
+            var commentId = $(this).data('id');
+            var $button = $(this);
+
+            $.ajax({
+                url: '{{route('comment.upvote',['id'=>$comment->id])}}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $button.next('.like-count').text(response.upvote);
+                    $button.siblings('.dislike-count').text(response.downvote);
+                }
+            });
+        });
+
+        // Handle downvote
+        $('.downvote').click(function(e) {
+            e.preventDefault();
+            var commentId = $(this).data('id');
+            var $button = $(this);
+
+            $.ajax({
+                url: '{{route('comment.downvote',['id'=>$comment->id])}}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $button.next('.dislike-count').text(response.downvote);
+                    $button.siblings('.like-count').text(response.upvote);
+                }
+            });
+        });
+    });
+</script>
 
 <script>
     function previewImage(event){
@@ -170,7 +218,6 @@
 </script>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         // Handle upvote

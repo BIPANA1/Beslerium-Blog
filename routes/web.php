@@ -63,6 +63,13 @@ Route::post('/blog-upvote/{id}',[BlogController::class,'upvote'])->name('blog.up
 Route::post('/blog-downvote/{id}',[BlogController::class,'downvote'])->name('blog.downvote');
 
 
+//upvote downvote comment
+
+Route::post('/comment-upvote/{id}',[CommentController::class,'upvote'])->name('comment.upvote');
+Route::post('/comment-downvote/{id}',[CommentController::class,'downvote'])->name('comment.downvote');
+
+
+
 
 
 
